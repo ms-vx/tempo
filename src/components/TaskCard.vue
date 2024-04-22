@@ -29,6 +29,18 @@
           >
             {{ category.label }}
           </v-chip>
+          <v-chip
+            class="px-2"
+            :class="{'red': isLate, 'light-green': !isLate}"
+            v-if="task.deadline"
+            small
+            outlined
+            text-color="white"
+          >
+          <v-icon left small v-if=isLate>{{ $icons.mdiClockAlert }}</v-icon>
+            {{ task.deadline }}
+          </v-chip>
+          <v-icon>mdi-domain</v-icon>
         </v-col>
         <v-col
           cols="6"
@@ -85,6 +97,11 @@
           :items="$store.getters['taskListChoices']"
           label="List"
         ></v-select>
+        <v-text-field
+          v-model="newTask.deadline"
+          label="Deadline"
+          type="date"
+          ></v-text-field>
         <v-btn transition="" small text color="red" @click.prevent="deleteTask">
          <v-icon left transition="">{{ $icons.mdiDelete }}</v-icon>
           Delete
@@ -124,6 +141,14 @@ export default {
   },
   components: {SubtaskList},
   computed: {
+    isLate () {
+      if (this.task.deadline &&
+          this.task.deadline < new Date().toISOString() &&
+          !this.isDone) {
+        return true
+      }
+      return false
+    },
     category () {
       if (!this.task.category) {
         return 
