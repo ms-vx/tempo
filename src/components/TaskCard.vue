@@ -1,5 +1,15 @@
 <template>
   <v-card :color="$theme.nestedCard.color">
+    <v-system-bar
+      :class="{'red': isLate, 'light-green': !isLate}"
+      text-color=white
+      v-if=task.deadline
+      small
+    >
+        <v-icon small v-if=isLate>{{ $icons.mdiClockAlert }}</v-icon>
+        <span class="font-weight-bold">{{ task.deadline }}</span>
+    </v-system-bar>
+
     <v-card-text :class="[$theme.nestedCard.textSize, 'pt-3 pb-1 px-3']">
       <v-checkbox
         class="task-checkbox my-0 py-0"
@@ -28,17 +38,6 @@
             :text-color="category.color[1]"
           >
             {{ category.label }}
-          </v-chip>
-          <v-chip
-            class="px-2"
-            :class="{'red': isLate, 'light-green': !isLate}"
-            v-if="task.deadline"
-            small
-            outlined
-            text-color="white"
-          >
-          <v-icon left small v-if=isLate>{{ $icons.mdiClockAlert }}</v-icon>
-            {{ task.deadline }}
           </v-chip>
           <v-icon>mdi-domain</v-icon>
         </v-col>
