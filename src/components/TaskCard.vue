@@ -39,7 +39,6 @@
           >
             {{ category.label }}
           </v-chip>
-          <v-icon>mdi-domain</v-icon>
         </v-col>
         <v-col
           cols="6"

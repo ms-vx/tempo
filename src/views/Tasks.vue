@@ -117,7 +117,7 @@
                   <v-text-field
                     label="Deadline"
                     v-model="newTaskDeadline"
-                    type="datetime-local"
+                    type="date"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
